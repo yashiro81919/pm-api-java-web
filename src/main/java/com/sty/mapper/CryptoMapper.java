@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CryptoMapper {
+    
     @Select("SELECT * FROM t_crypto")
     @Results({ @Result(property = "cmcId", column = "cmc_id"), @Result(property = "quantity", column = "quantity"),
             @Result(property = "remark", column = "remark") })

@@ -7,6 +7,8 @@ import com.sty.entity.Key;
 import com.sty.service.KeyService;
 import com.sty.util.AESUtil;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -23,11 +25,15 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequestMapping("/api/cmcs")
 public class CmcController {
 
+    private static Logger logger = LoggerFactory.getLogger(CmcController.class);
+
     @Autowired
     private KeyService service;    
 
     @GetMapping("")
     public JsonNode getAll() {
+        logger.info("CmcController::getAll()");
+
         RestTemplate restTemplate = new RestTemplate();
         String url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest";
 
@@ -42,6 +48,8 @@ public class CmcController {
         HttpEntity<String> entity = new HttpEntity<String>(headers);
 
         ResponseEntity<JsonNode> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity, JsonNode.class);
+
+        logger.debug("response from CMC API: {}", response);
 
         return response.getBody().get("data");
     }

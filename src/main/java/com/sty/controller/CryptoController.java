@@ -5,6 +5,8 @@ import java.util.List;
 import com.sty.entity.Crypto;
 import com.sty.service.CryptoService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,26 +21,36 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/cryptos")
 public class CryptoController {
 
+    private static Logger logger = LoggerFactory.getLogger(CryptoController.class);
+
     @Autowired
     private CryptoService service;
 
     @GetMapping("")
     public List<Crypto> getAll() {
+        logger.info("CryptoController::getAll()");
+
         return service.getAll();
     }
 
     @PostMapping("")
     public void create(@RequestBody Crypto crypto) {
+        logger.info("CryptoController::create()");
+
         service.create(crypto);
     }
 
     @PutMapping("")
     public void update(@RequestBody Crypto crypto) {
+        logger.info("CryptoController::update()");
+
         service.update(crypto);
     }
 
     @DeleteMapping("/{name}")
     public void delete(@PathVariable String name) {
+        logger.info("CryptoController::delete()");
+
         service.delete(name);
     }
 }

@@ -10,12 +10,19 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class AESUtil {
+
+    private static Logger logger = LoggerFactory.getLogger(AESUtil.class);
 
     private static String AesKey = "pm-sty";
 
     public static String decrypt(String content) {
         try {
+            logger.info("decrypt the string: {}", content);
+
             byte[] cipherData = Base64.getDecoder().decode(content);
             byte[] saltData = Arrays.copyOfRange(cipherData, 8, 16);
 
@@ -32,6 +39,7 @@ public class AESUtil {
             String decryptedText = new String(decryptedData, StandardCharsets.UTF_8);
             return decryptedText;
         } catch (Exception e) {
+            logger.error("error happened when decrypting: {}", e);
             throw new RuntimeException(e);
         }
     }
@@ -94,8 +102,9 @@ public class AESUtil {
             return result;
 
         } catch (DigestException e) {
-            throw new RuntimeException(e);
+            logger.error("error happened when GenerateKeyAndIV: {}", e);
 
+            throw new RuntimeException(e);
         } finally {
             // Clean out temporary data
             Arrays.fill(generatedData, (byte) 0);

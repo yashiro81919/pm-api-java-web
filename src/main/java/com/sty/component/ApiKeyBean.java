@@ -6,6 +6,8 @@ import com.sty.entity.Key;
 import com.sty.service.KeyService;
 import com.sty.util.AESUtil;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -14,6 +16,8 @@ import org.springframework.stereotype.Component;
 @Order(1)
 public class ApiKeyBean {
 
+    private static Logger logger = LoggerFactory.getLogger(ApiKeyBean.class);
+
     private String apiKey; 
 
     @Autowired
@@ -21,8 +25,12 @@ public class ApiKeyBean {
     
     @PostConstruct
     public void postConstruct() {
+        logger.info("fetch API key from database");
+
         Key key = service.get("key");
         apiKey = AESUtil.decrypt(key.getKey()) + AESUtil.decrypt(key.getValue());
+
+        logger.debug("apiKey: {}", apiKey);
     }
 
     public String getApiKey() {
