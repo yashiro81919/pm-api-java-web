@@ -28,6 +28,10 @@ public class ApiKeyBean {
         logger.info("fetch API key from database");
 
         Key key = service.get("key");
+        if (key == null) {
+            logger.error("cannot find key in database or issue happen");
+            return;
+        }
         apiKey = AESUtil.decrypt(key.getKey()) + AESUtil.decrypt(key.getValue());
 
         logger.debug("apiKey: {}", apiKey);
