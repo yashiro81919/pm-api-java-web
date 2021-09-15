@@ -1,18 +1,18 @@
 package com.sty.mapper;
 
-import com.sty.entity.Key;
-
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Update;
-import org.apache.ibatis.annotations.Delete;
-import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
-@Repository
+import com.sty.entity.Key;
+
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+
+@Mapper
 public interface KeyMapper {
         
         @Select("SELECT * FROM t_key WHERE name like '%' || #{name} || '%'")

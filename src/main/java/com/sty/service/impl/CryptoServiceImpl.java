@@ -46,10 +46,10 @@ public class CryptoServiceImpl implements CryptoService {
     }
 
     @Override
-    public void delete(String name) {
+    public void delete(int cmcId) {
         logger.info("CryptoServiceImpl::delete()");
-        logger.debug("Crypto name: {}", name);
+        logger.debug("Crypto cmcId: {}", cmcId);
 
-        cryptoMapper.delete(name);
+        cryptoMapper.delete(cmcId);
     }
 }

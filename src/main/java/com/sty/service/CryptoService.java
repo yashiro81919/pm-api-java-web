@@ -12,5 +12,5 @@ public interface CryptoService {
 
     void update(Crypto crypto);
 
-    void delete(String name);
+    void delete(int cmcId);
 }

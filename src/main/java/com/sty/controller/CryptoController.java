@@ -47,10 +47,10 @@ public class CryptoController {
         service.update(crypto);
     }
 
-    @DeleteMapping("/{name}")
-    public void delete(@PathVariable String name) {
+    @DeleteMapping("/{cmcId}")
+    public void delete(@PathVariable int cmcId) {
         logger.info("CryptoController::delete()");
 
-        service.delete(name);
+        service.delete(cmcId);
     }
 }
