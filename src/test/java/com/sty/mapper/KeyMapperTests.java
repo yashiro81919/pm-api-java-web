@@ -13,6 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
@@ -43,8 +44,9 @@ public class KeyMapperTests {
     }
 
     @Test
+    @Sql("/MapperTest.sql")
     public void updateKeyTest() {
-        String name = "key";
+        String name = "test";
         String key1 = "2222";
         String value = "3333";
 
@@ -63,14 +65,16 @@ public class KeyMapperTests {
     }
 
     @Test
+    @Sql("/MapperTest.sql")
     public void searchKeysTest() {
-        List<Key> list = keyMapper.search("_");
+        List<Key> list = keyMapper.search("test");
         assertThat(list.size()).isGreaterThan(0);
     }
 
     @Test
+    @Sql("/MapperTest.sql")
     public void deleteKeyTest() {
-        String name = "key";
+        String name = "test";
 
         keyMapper.delete(name);
 

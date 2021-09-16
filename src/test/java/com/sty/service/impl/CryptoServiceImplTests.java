@@ -1,5 +1,8 @@
 package com.sty.service.impl;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -12,10 +15,12 @@ import com.sty.service.CryptoService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
+@SpringBootTest
 public class CryptoServiceImplTests {
 
     @Autowired
@@ -27,12 +32,51 @@ public class CryptoServiceImplTests {
     @Test
     public void getAllTest() {
         List<Crypto> list = new ArrayList<>();
-        // list.add(e);
 
-        // when(cryptoMapper.getAll()).thenReturn(customer);
+        Crypto crypto = new Crypto();
+        crypto.setCmcId(1234);
+        crypto.setQuantity(1000);
+        crypto.setRemark("remark");
+        list.add(crypto);
 
-        // service.getAll();
+        when(cryptoMapper.getAll()).thenReturn(list);
 
-        // assertThat(decrypted).isEqualTo("hello world");
+        List<Crypto> newList = service.getAll();
+
+        assertThat(newList.size()).isGreaterThan(0);
+        verify(cryptoMapper, times(1)).getAll();
     }
+
+    @Test
+    public void createTest() {
+        Crypto crypto = new Crypto();
+        crypto.setCmcId(1234);
+        crypto.setQuantity(1000);
+        crypto.setRemark("remark");
+
+        service.create(crypto);
+
+        verify(cryptoMapper, times(1)).insert(crypto);
+    } 
+    
+    @Test
+    public void updateTest() {
+        Crypto crypto = new Crypto();
+        crypto.setCmcId(1234);
+        crypto.setQuantity(1000);
+        crypto.setRemark("remark");
+
+        service.update(crypto);
+
+        verify(cryptoMapper, times(1)).update(crypto);
+    } 
+    
+    @Test
+    public void deleteTest() {
+        int cmcId = 1234;
+
+        service.delete(cmcId);
+
+        verify(cryptoMapper, times(1)).delete(cmcId);
+    }    
 }

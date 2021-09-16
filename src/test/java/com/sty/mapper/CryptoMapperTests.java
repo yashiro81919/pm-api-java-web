@@ -13,6 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
@@ -42,8 +43,9 @@ public class CryptoMapperTests {
     }
 
     @Test
+    @Sql("/MapperTest.sql")
     public void updateCryptoTest() {
-        int cmcId = 1;
+        int cmcId = 5566;
         int quantity = 5000;
         String remark = "remark1";
 
@@ -61,14 +63,16 @@ public class CryptoMapperTests {
     }
 
     @Test
+    @Sql("/MapperTest.sql")
     public void getAllCryptosTest() {
         List<Crypto> list = cryptoMapper.getAll();
         assertThat(list.size()).isGreaterThan(0);
     }
 
     @Test
+    @Sql("/MapperTest.sql")
     public void deleteCryptoTest() {
-        int cmcId = 1;
+        int cmcId = 5566;
 
         cryptoMapper.delete(cmcId);
 
