@@ -1,6 +1,7 @@
 package com.sty.mapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public class CryptoMapperTests {
     private CryptoMapper cryptoMapper;
 
     @Test
-    public void insertCryptosTest() {
+    public void insertCryptoTest() {
         int cmcId = 5566;
         int quantity = 10000;
         String remark = "remark";
@@ -41,7 +42,7 @@ public class CryptoMapperTests {
     }
 
     @Test
-    public void updateCryptosTest() {
+    public void updateCryptoTest() {
         int cmcId = 1;
         int quantity = 5000;
         String remark = "remark1";
@@ -54,6 +55,7 @@ public class CryptoMapperTests {
         cryptoMapper.update(crypto);
 
         Crypto newCrypto = cryptoMapper.get(cmcId);
+        assertNotNull(newCrypto);
         assertThat(newCrypto.getQuantity()).isEqualTo(quantity);
         assertThat(newCrypto.getRemark()).isEqualTo(remark);
     }
@@ -65,7 +67,7 @@ public class CryptoMapperTests {
     }
 
     @Test
-    public void deleteCryptosTest() {
+    public void deleteCryptoTest() {
         int cmcId = 1;
 
         cryptoMapper.delete(cmcId);
