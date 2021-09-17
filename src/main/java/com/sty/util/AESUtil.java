@@ -62,7 +62,7 @@ public class AESUtil {
      * @param md         the message digest algorithm to use
      * @return an two-element array with the generated key and IV
      */
-    public static byte[][] GenerateKeyAndIV(int keyLength, int ivLength, int iterations, byte[] salt, byte[] password,
+    private static byte[][] GenerateKeyAndIV(int keyLength, int ivLength, int iterations, byte[] salt, byte[] password,
             MessageDigest md) {
 
         int digestLength = md.getDigestLength();
