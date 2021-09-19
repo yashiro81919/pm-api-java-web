@@ -10,11 +10,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.sty.component.ApiKeyBean;
 import com.sty.entity.Key;
 import com.sty.service.KeyService;
-import com.sty.util.AESUtil;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
 import org.mybatis.spring.boot.test.autoconfigure.AutoConfigureMybatis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -40,13 +37,9 @@ public class CmcControllerTests {
     public void returnDataFromCmcTest() throws Exception {
         Key key = new Key();
         key.setName("cmc-key");
-        key.setKey("X-CMC_PRO_API_KEY");
-        key.setValue("1");
+        key.setKey("U2FsdGVkX19ivYmkSzT9+vWfekkO+b8+891zuAWBLo8Z8tb9pSXvX2xso6uohxHm");
+        key.setValue("U2FsdGVkX1+J+TmqbXrf9YF7ziKEhUj8K2RQp/cYUWQ=");
         when(service.get("cmc-key")).thenReturn(key);
-
-        MockedStatic<AESUtil> utilities = Mockito.mockStatic(AESUtil.class);
-        utilities.when(() -> AESUtil.decrypt("1")).thenReturn("1");
-        utilities.when(() -> AESUtil.decrypt("X-CMC_PRO_API_KEY")).thenReturn("X-CMC_PRO_API_KEY");
 
         mockMvc.perform(get("/api/cmcs")).andDo(print()).andExpect(status().is4xxClientError()).andExpect(status().reason("Token is invalid"));
 
