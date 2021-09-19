@@ -1,5 +1,7 @@
 package com.sty.controller;
 
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -46,8 +48,8 @@ public class CmcControllerTests {
         utilities.when(() -> AESUtil.decrypt("1")).thenReturn("1");
         utilities.when(() -> AESUtil.decrypt("X-CMC_PRO_API_KEY")).thenReturn("X-CMC_PRO_API_KEY");
 
-        mockMvc.perform(get("/api/cmcs")).andDo(print()).andExpect(status().isBadRequest()).andExpect(result -> {
-            Exception e = result.getResolvedException();
-        });
+        mockMvc.perform(get("/api/cmcs")).andDo(print()).andExpect(status().is4xxClientError()).andExpect(status().reason("Token is invalid"));
+
+        verify(service, times(1)).get("cmc-key");
     }
 }

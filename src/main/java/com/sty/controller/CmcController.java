@@ -3,6 +3,7 @@ package com.sty.controller;
 import java.util.Arrays;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.sty.component.RestTemplateResponseErrorHandler;
 import com.sty.entity.Key;
 import com.sty.service.KeyService;
 import com.sty.util.AESUtil;
@@ -35,6 +36,7 @@ public class CmcController {
         logger.info("CmcController::getAll()");
 
         RestTemplate restTemplate = new RestTemplate();
+        restTemplate.setErrorHandler(new RestTemplateResponseErrorHandler());
         String url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest";
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url).queryParam("start", "1")
