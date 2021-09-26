@@ -28,3 +28,4 @@ pm.db
 .project
 org.eclipse.*
 .vscode
+.idea
