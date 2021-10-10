@@ -31,4 +31,13 @@ public class Crypto {
     public void setRemark(String remark) {
         this.remark = remark;
     }
+
+    @Override
+    public String toString() {
+        return "Crypto{" +
+                "cmcId=" + cmcId +
+                ", quantity=" + quantity +
+                ", remark='" + remark + '\'' +
+                '}';
+    }
 }
