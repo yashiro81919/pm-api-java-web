@@ -1,6 +1,6 @@
 # pm-api-java-web - a RESTful Web API
 
-Back-end of personal management application built with Java, Spring Boot and SQLite database.
+Back-end of personal management application built with Java, Spring Boot MVC and SQLite database.
 
 Including two modules:
 
